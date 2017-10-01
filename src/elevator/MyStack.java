@@ -5,35 +5,34 @@ package elevator;
  * ElevatorPerson
  * 
  * @author Wesley Chan
- *
- * @param <T>
- *            Generic used to represent an Object in the stack
+ * 
  */
-public class MyStack<T> {
+public class MyStack {
 
 	private int top;
-	private Object[] stackArr;
+	private ElevatorPerson[] stackArr;
 
 	MyStack() {
 		top = -1;
-		stackArr = new Object[5];
+		stackArr = new ElevatorPerson[5];
 	}
-	
-	@SuppressWarnings("unchecked")
-	public T[] getStackArr() {
-		return (T[]) stackArr;
+
+	public ElevatorPerson[] getStackArr() {
+		return stackArr;
 	}
 
 	/**
 	 * Adds an object to the stack
 	 * 
-	 * @param t represents an object that will be placed in the stack
+	 * @param t
+	 *            represents an object that will be placed in the stack
 	 */
-	public void push(T t) {
+	public void push(ElevatorPerson ep) {
 		if (isFull()) { // Checks if stack is full
 			System.out.println("Full.");
 		} else {
-			stackArr[++top] = t;
+			top++;
+			stackArr[top] = ep;
 		}
 	}
 
@@ -42,29 +41,26 @@ public class MyStack<T> {
 	 * 
 	 * @return the object at top of stack, null if empty
 	 */
-	@SuppressWarnings("unchecked")
-	public T pop() {
+	public ElevatorPerson pop() {
 		if (isEmpty()) { // Check if stack is empty
 			System.out.println("Empty.");
 			return null;
 		} else {
-			T t = (T) stackArr[top];
+			ElevatorPerson ep = (ElevatorPerson) stackArr[top];
 			stackArr[top] = null;
 			top--;
-			return t;
+			return ep;
 		}
 	}
-	
-	@SuppressWarnings("unchecked")
-	public T peek() {
+
+	public ElevatorPerson peek() {
 		if (isEmpty()) { // Check if stack is empty
 			System.out.println("Empty.");
 			return null;
 		} else {
-			return (T) stackArr[top];
+			return stackArr[top];
 		}
 	}
-	
 
 	/**
 	 * Checks if the stack is empty.
@@ -96,8 +92,8 @@ public class MyStack<T> {
 			}
 		}
 	}
-	
+
 	public int getSize() {
-		return top;
+		return top+1;
 	}
 }

@@ -3,29 +3,55 @@ package elevator;
 import java.io.IOException;
 
 public class ElevatorDriver {
-	public static void main (String[] args) throws IOException{
-		
-		Reader r = new Reader("elevatorData.txt");
-	//	System.out.println(r.countLines());
-		
+	public static void main(String[] args) throws IOException {
+
+		Reader elevatorData = new Reader("elevatorData.txt");
+		// System.out.println(r.countLines());
+
 		// Prompt User for data source file
-		
-		ElevatorPerson ep1 = new ElevatorPerson("Wes1", 1, 2);
-		ElevatorPerson ep2 = new ElevatorPerson("Wes2", 2, 4);
-		ElevatorPerson ep3 = new ElevatorPerson("Wes3", 3, 1);
-		ElevatorPerson ep4 = new ElevatorPerson("Wes4", 5, 1);
-		
-		ElevatorStack<ElevatorPerson> es = new ElevatorStack<ElevatorPerson>();
-		es.push(ep1);
-		es.push(ep2);
-		es.push(ep3);
-		es.push(ep4);
-		
-		es.pop();
-		
-		es.printStack();
-		
-		System.out.println(es.GETTOTALRODE());
-		
+
+		Elevator elevOb = new Elevator();
+
+		// Elevator Simulator Logic
+		// Determines if someone is getting on or off at current floor.
+		// Determines when the elevator moves
+		// Will continue until there is no more input and the elevator is empty
+
+		// Initialize destination floor request and move elevator to that floor
+		elevOb.setDestinationFloor(Integer.parseInt(elevatorData.getFileLines()[0][1]));
+
+		do {
+			for (String[] s : elevatorData.getFileLines()) {
+				if (elevOb.isEmpty()) {
+					elevOb.getElevStack().INCNUMEMPTY();
+				}
+
+				ElevatorPerson ep = new ElevatorPerson(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]));
+				elevOb.setRequestedFloor(ep.getFloorExit());
+				
+				while (ep.getFloorEntered() != elevOb.getDestinationFloor()) {
+					
+					elevOb.moveElev();
+					elevOb.exit();
+					elevOb.detNextFloor();
+				}
+
+				if (ep.getFloorEntered() == elevOb.getDestinationFloor()) {
+					elevOb.exit();
+
+					if (elevOb.isFull()) {
+						System.out.println(ep + " is taking the stairs. Elevator is full.");
+						elevOb.getElevStack().INCNUMFULL();
+						elevOb.detNextFloor();
+						elevOb.moveElev();
+					} else {
+						System.out.println(ep + " is entering. " + ep + "'s destination is floor " + ep.getFloorExit());
+						elevOb.enter(ep);
+					}
+
+				}
+			}
+		} while ((!elevOb.isEmpty()));
+
 	}
 }

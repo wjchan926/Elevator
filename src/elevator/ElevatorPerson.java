@@ -80,7 +80,7 @@ public class ElevatorPerson {
 	
 	@Override
 	public String toString(){
-		return name + " exiting elevator. Temproarily Exited: " + tempExits + " times.";
+		return name;
 	}
 	
 }

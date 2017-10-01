@@ -11,7 +11,7 @@ import java.io.*;
 public class Reader {
 
 	private File f;
-	private String[] fileLines;
+	private String[][] fileLines;
 
 	/**
 	 * Constructor with filepath as an argument
@@ -23,7 +23,8 @@ public class Reader {
 	 */
 	public Reader(String fileName) throws IOException {
 		f = new File(fileName);
-		fileLines = new String[countLines()];
+		fileLines = new String[countLines()][3];
+		readFromFile();
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class Reader {
 	 * 
 	 * @return fileLines array
 	 */
-	public String[] getFileLines() {
+	public String[][] getFileLines() {
 		return fileLines;
 	}
 
@@ -51,15 +52,17 @@ public class Reader {
 	 * @throws IOException
 	 *             throws exception if it cannot find the file
 	 */
-	public void readFromFile() throws IOException {
+	private void readFromFile() throws IOException {
 
 		FileReader fr = new FileReader(f);
 		BufferedReader input = new BufferedReader(fr);
 
 		for (int i = 0; i < fileLines.length; i++) {
-			fileLines[i] = input.readLine();
+			fileLines[i] = input.readLine().split("\\s+");
 		}
 		input.close();
+		
+		
 	}
 
 	/**
@@ -96,5 +99,4 @@ public class Reader {
 			inputFile.close();
 		}
 	}
-
 }

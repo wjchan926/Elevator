@@ -13,15 +13,17 @@ public class Elevator {
 
 	private int currentFloor;
 	private int destinationFloor;
-	private String direction;
-	private ElevatorStack<ElevatorPerson> elevStack;
-	private MyStack<ElevatorPerson> tempExitStack;
+	private int requestedFloor;
+	private int direction; // -1 for down, 1 for up
+	private ElevatorStack elevStack;
+	private MyStack tempExitStack;
 
 	Elevator() {
 		currentFloor = 1;
-		direction = "up";
-		elevStack = new ElevatorStack<ElevatorPerson>();
-		tempExitStack = new MyStack<ElevatorPerson>();
+		direction = 1;
+		destinationFloor = currentFloor;
+		elevStack = new ElevatorStack();
+		tempExitStack = new MyStack();
 	}
 
 	/**
@@ -37,63 +39,93 @@ public class Elevator {
 		currentFloor = floor;
 	}
 
-	public MyStack<ElevatorPerson> getElevStack() {
+	public int getDestinationFloor() {
+		return destinationFloor;
+	}
+
+	public void setDestinationFloor(int floor) {
+		destinationFloor = floor;
+	}
+	
+	public void setRequestedFloor(int floor) {
+		requestedFloor = floor;
+	}
+
+	public ElevatorStack getElevStack() {
 		return elevStack;
 	}
 
-	public MyStack<ElevatorPerson> getTempExitStack() {
+	public MyStack getTempExitStack() {
 		return tempExitStack;
 	}
 
 	/**
 	 * Returns the direction the elevator is going
 	 * 
-	 * @return True if the elevator is going upward, false if the elevator is going
-	 *         downward
+	 * @return 1 if the elevator is moving up and if the elevator is moving down
 	 */
-	public String getDirection() {
+	public int getDirection() {
 		return direction;
 	}
 
 	/**
 	 * Sets the direction to true, corresponds to elevator moving upwards
 	 */
-	public void elevatorUp() {
-		direction = "Up";
+	public void switchElevDirection() {
+		direction *= -1;
 	}
 
 	/**
-	 * Sets the direction to false, corresponds to elevator moving downwards
+	 * Method that signifies a person entering the elevator. Person will be pushed
+	 * onto the elevator stack. A new destination floor will be assigned if the
+	 * person entering's exit floor is closer to the current floor and is in the
+	 * same direction the elevator is moving than the original destination floor.
+	 * 
+	 * @param ep
+	 *            ElevavatorPerson object that represents someone entering the
+	 *            elevator
 	 */
-	public void elevatorDown() {
-		direction = "Down";
-	}
-
 	public void enter(ElevatorPerson ep) {
 		elevStack.push(ep);
-		detNextFloor();
+	
 	}
 
+	/**
+	 * Permanently pops people from the Elevator Stack if it is their exit floor.
+	 * This method will pop people to a temporary stack if needed. This represents
+	 * people getting out of the elevator so that the people who need to exit can
+	 * exit. Then the people who temporarily exited will get back on.
+	 * 
+	 * Postcondition: tempExitStack will be empty after method call completes
+	 */
 	public void exit() {
-		for (int i = 0; i <= elevStack.getSize(); i++) {
-			if (elevStack.peek().getFloorExit() != destinationFloor) {
-				tempExitStack.push(elevStack.pop());
-			} else {
-				// Write to file who exited
-				elevStack.pop();
+		if (!elevStack.isEmpty() && destinationFloor == currentFloor) {
+			for (int i = 0; i < elevStack.getSize(); i++) {
+				if (elevStack.peek().getFloorExit() != currentFloor) {
+					tempExitStack.push(elevStack.pop());
+				} else {
+					// Write to file who exited
+					ElevatorPerson tempEp = elevStack.pop();
+					System.out.println(tempEp + " is exiting. Temporarily exited: " + tempEp.getTempExits());
+				}
 			}
+
+			restoreTempExited(); // People return if exited
+			detNextFloor();
 		}
-		
-		restoreTempExited(); // People return if exited
-		detNextFloor();
+
 	}
 
 	/**
 	 * Pops every element in the tempExitStack and Pushes them back into the
 	 * elevStack. Represents people reentering the elevator after making a temporary
 	 * exit. Increments the number of temporary exits a person has made.
+	 * 
+	 * Precondition: Used only in the exit() method Postcondition: tempExitStack
+	 * will be empty after method call completes
 	 */
 	private void restoreTempExited() {
+		tempExitStack.printStack();
 		if (tempExitStack.getSize() > -1) {
 			for (ElevatorPerson ep : tempExitStack.getStackArr()) {
 				ep.incTempExits();
@@ -105,54 +137,53 @@ public class Elevator {
 
 	/**
 	 * Determines which floor is the next closest floor based on the direction the
-	 * elevator is moving. If there are no floor requests in the direction the
-	 * elevator is moving, the elevator will switch it's direction. The method will
-	 * then recursively determine the closest floor;
+	 * elevator is moving. This floor can either be from someone exiting or
+	 * entering. If there are no floor requests in the direction the elevator is
+	 * moving, the elevator will switch it's direction.
 	 * 
-	 * Precondition: method is only called when a new person enters the elevator is
-	 * made or a person permanently exits the elevator.
 	 */
-	private void detNextFloor() {
-		int tempFloor = currentFloor;
+	public void detNextFloor() {
+
 		int diff = 5;
-		int distance = 0;
+		int[] floorReqInElev = new int[elevStack.getSize()];
 
-		if (!elevStack.isEmpty()) {
-			switch (direction) {
-			case "Up": // Elevator is moving up
-				for (ElevatorPerson ep : elevStack.getStackArr()) {
-					if (ep.getFloorExit() > currentFloor && diff > (distance = tempFloor - ep.getFloorExit())) {
-						diff = distance;
-						tempFloor = ep.getFloorExit();
-					}
-
-					// Memoization of destination floor;
-					destinationFloor = tempFloor;
-
-					if (tempFloor == currentFloor) {
-						elevatorDown();
-						detNextFloor();
-					}
-				}
-				break;
-			case "Down": // Elevator is moving down
-				for (ElevatorPerson ep : elevStack.getStackArr()) {
-					if (ep.getFloorExit() < currentFloor && diff > (distance = ep.getFloorExit() - tempFloor)) {
-						diff = distance;
-						tempFloor = ep.getFloorExit();
-					}
-
-					// Memoization of destination floor
-					destinationFloor = tempFloor;
-
-					if (tempFloor == currentFloor) {
-						elevatorUp();
-						detNextFloor();
-					}
-				}
-				break;
-			}
-
+		for (int i = 0; i < floorReqInElev.length; i++) {
+			floorReqInElev[i] = elevStack.getStackArr()[i].getFloorExit();
 		}
+
+		// Linear search for closest floor since there are only max 6 elements. Also
+		// take into account direction of elevator.
+		for (int i = 0; i < floorReqInElev.length; i++) {
+			if (floorReqInElev[i] * direction > currentFloor * direction
+					&& calcFloorDist(floorReqInElev[i]) < diff) {
+				diff = calcFloorDist(floorReqInElev[i]);
+				destinationFloor = floorReqInElev[i];
+			}
+		}	
+		
+		if (calcFloorDist(requestedFloor) < calcFloorDist(destinationFloor)) {
+			destinationFloor = requestedFloor;
+		}
+	}
+	
+	private int calcFloorDist(int i) {
+		return Math.abs(i - currentFloor);
+	}
+
+	/**
+	 * This method moves the elevator to the destination floor
+	 */
+	public void moveElev() {
+
+		currentFloor = destinationFloor;
+		System.out.println("Elevator is on floor " + currentFloor);
+	}
+
+	public boolean isEmpty() {
+		return elevStack.isEmpty();
+	}
+
+	public boolean isFull() {
+		return elevStack.isFull();
 	}
 }

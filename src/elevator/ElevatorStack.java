@@ -8,7 +8,7 @@ package elevator;
  * @param <T>
  *            Generic used to represent an Object in the Elevator
  */
-public class ElevatorStack<T> extends MyStack<T> {
+public class ElevatorStack extends MyStack {
 
 	public static int numEmpty;
 	public static int numFull;
@@ -17,7 +17,7 @@ public class ElevatorStack<T> extends MyStack<T> {
 
 	ElevatorStack() {
 		super();
-		numEmpty = 0;
+		numEmpty = -2; // Elevator will always be empty in the beginning and at the end of the simulation
 		numFull = 0;
 	}
 
@@ -29,33 +29,33 @@ public class ElevatorStack<T> extends MyStack<T> {
 		return numFull;
 	}
 
+	public final int GETNUMEMPTY() {
+		return numEmpty;
+	}
+
+	public final void INCNUMEMPTY() {
+		numEmpty++;
+	}
+
+	public final int GETNUMFULL() {
+		return numFull;
+	}
+
+	public final void INCNUMFULL() {
+		numFull++;
+	}
+
 	public final int GETTOTALRODE() {
 		return totalRode;
 	}
-	
+
 	public final void DECTOTALRODE() {
 		totalRode--;
 	}
-	
+
 	@Override
-	public void push(T t) {
+	public void push(ElevatorPerson ep) {
 		totalRode++;
-		super.push(t);
-	}
-	
-	@Override
-	public boolean isEmpty() {
-		// Write to file that Elevator is empty
-
-		return super.isEmpty();
-
-	}
-
-	@Override
-	public boolean isFull() {
-		// Write to file that Elevator is full
-
-		return super.isFull();
-
+		super.push(ep);
 	}
 }
