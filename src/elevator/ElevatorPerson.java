@@ -3,14 +3,14 @@ package elevator;
 public class ElevatorPerson {
 	
 	private String name;
-	private int floorEntered;
-	private int floorExtited;
-
+	private int floorEnter;
+	private int floorExit;
+	private int tempExits;
 	
-	ElevatorPerson(String name, int floorEntered, int floorExited){
+	ElevatorPerson(String name, int floorEnter, int floorExit){
 		this.setName(name);
-		this.setFloorEntered(floorEntered);
-		this.setFloorExtited(floorExited);		
+		this.setFloorEntered(floorEnter);
+		this.setFloorExit(floorExit);		
 	}
 
 	/**
@@ -34,36 +34,53 @@ public class ElevatorPerson {
 	 * @return the floor in which the person entered as type int
 	 */
 	public int getFloorEntered() {
-		return floorEntered;
+		return floorEnter;
 	}
 
 	/**
 	 * Sets the floor in which the person entered
 	 * @param floorEntered floor in which the person entered of type int
 	 */
-	public void setFloorEntered(int floorEntered) {
-		this.floorEntered = floorEntered;
+	public void setFloorEntered(int floorEnter) {
+		this.floorEnter = floorEnter;
 	}
 	
 	/**
 	 * Gets the floor where person wants to exit
 	 * @return floor where person wants to exit as type int
 	 */
-	public int getFloorExtited() {
-		return floorExtited;
+	public int getFloorExit() {
+		return floorExit;
 	}
 
 	/**
 	 * Sets the floor where person wants to exit
 	 * @param floorExtited floor where person wants to exit as type int
 	 */
-	public void setFloorExtited(int floorExtited) {
-		this.floorExtited = floorExtited;
+	public void setFloorExit(int floorExit) {
+		this.floorExit = floorExit;
 	}
+	
+	/**
+	 * Returns the number of times this person makes a temporary exit
+	 * @return tempExits number of temporary exits person has made as type int
+	 */
+	public int getTempExits() {
+		return tempExits;
+	}
+	
+	/**
+	 * Increases the number of temporary exits the person has made by 1
+	 */
+	public void incTempExits() {
+		tempExits++;
+	}
+	
+	
 	
 	@Override
 	public String toString(){
-		return name;
+		return name + " exiting elevator. Temproarily Exited: " + tempExits + " times.";
 	}
 	
 }

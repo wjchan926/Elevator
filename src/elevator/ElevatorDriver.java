@@ -15,13 +15,17 @@ public class ElevatorDriver {
 		ElevatorPerson ep3 = new ElevatorPerson("Wes3", 3, 1);
 		ElevatorPerson ep4 = new ElevatorPerson("Wes4", 5, 1);
 		
-		ElevatorStack es = new ElevatorStack();
+		ElevatorStack<ElevatorPerson> es = new ElevatorStack<ElevatorPerson>();
 		es.push(ep1);
 		es.push(ep2);
 		es.push(ep3);
 		es.push(ep4);
 		
-		es.printElevatorStack();
+		es.pop();
+		
+		es.printStack();
+		
+		System.out.println(es.GETTOTALRODE());
 		
 	}
 }

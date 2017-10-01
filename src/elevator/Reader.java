@@ -14,12 +14,10 @@ public class Reader {
 	private String[] fileLines;
 
 	/**
-	 * Constructor with file path and number of lines as arguments
+	 * Constructor with filepath as an argument
 	 * 
 	 * @param fileName
-	 *            filepath
-	 * @param numLines
-	 *            number of records in file
+	 *            filepath of input source
 	 * @throws IOException
 	 *             throws exception if it cannot find the file
 	 */
@@ -65,8 +63,8 @@ public class Reader {
 	}
 
 	/**
-	 * Method that counts the number of lines in the data source file. It
-	 * utilizes a buffered binary read.
+	 * Method that counts the number of lines in the data source file. It utilizes a
+	 * buffered binary read.
 	 * 
 	 * @return count the number of lines in file
 	 * @throws IOException
@@ -97,6 +95,6 @@ public class Reader {
 			// Close out InputStream
 			inputFile.close();
 		}
-	}	
+	}
 
 }
