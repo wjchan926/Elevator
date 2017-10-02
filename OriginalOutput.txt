@@ -1,0 +1,218 @@
+Entering Elevator: Eli		|	Desitnation Floor: 5
+Entering Elevator: Babs		|	Desitnation Floor: 3
+Entering Elevator: Fred		|	Desitnation Floor: 2
+Entering Elevator: Tom		|	Desitnation Floor: 4
+
+Elevator is moving to Floor 2
+
+Exiting Elevator: Fred		|	Temporarily exited: 0
+Entering Elevator: Ian		|	Desitnation Floor: 3
+Entering Elevator: Tip		|	Desitnation Floor: 4
+
+Elevator is moving to Floor 3
+
+Exiting Elevator: Ian		|	Temporarily exited: 0
+Exiting Elevator: Babs		|	Temporarily exited: 0
+Entering Elevator: Barb		|	Desitnation Floor: 5
+
+Elevator is moving to Floor 4
+
+Exiting Elevator: Tip		|	Temporarily exited: 1
+Exiting Elevator: Tom		|	Temporarily exited: 2
+
+Elevator is moving to Floor 5
+
+Exiting Elevator: Barb		|	Temporarily exited: 1
+Exiting Elevator: Eli		|	Temporarily exited: 0
+Entering Elevator: Tina		|	Desitnation Floor: 2
+Entering Elevator: Joe		|	Desitnation Floor: 1
+
+Elevator is moving to Floor 4
+
+Entering Elevator: Hal		|	Desitnation Floor: 2
+
+Elevator is moving to Floor 3
+
+Entering Elevator: Ted		|	Desitnation Floor: 1
+
+Elevator is moving to Floor 2
+
+Exiting Elevator: Hal		|	Temporarily exited: 0
+Exiting Elevator: Tina		|	Temporarily exited: 0
+Entering Elevator: Deb		|	Desitnation Floor: 1
+
+Elevator is moving to Floor 1
+
+Exiting Elevator: Deb		|	Temporarily exited: 0
+Exiting Elevator: Ted		|	Temporarily exited: 1
+Exiting Elevator: Joe		|	Temporarily exited: 1
+Entering Elevator: Ann		|	Desitnation Floor: 3
+Entering Elevator: Jim		|	Desitnation Floor: 3
+Entering Elevator: Sal		|	Desitnation Floor: 3
+Entering Elevator: Vic		|	Desitnation Floor: 4
+Entering Elevator: Flo		|	Desitnation Floor: 5
+Elevator is full. Taking Stairs: Ada
+
+Elevator is moving to Floor 2
+
+Elevator is full. Taking Stairs: Dina
+Elevator is full. Taking Stairs: Bob
+
+Elevator is moving to Floor 3
+
+Exiting Elevator: Sal		|	Temporarily exited: 0
+Exiting Elevator: Jim		|	Temporarily exited: 0
+Exiting Elevator: Ann		|	Temporarily exited: 0
+
+Elevator is moving to Floor 4
+
+Exiting Elevator: Vic		|	Temporarily exited: 1
+
+Elevator is moving to Floor 5
+
+Exiting Elevator: Flo		|	Temporarily exited: 2
+Entering Elevator: Lee		|	Desitnation Floor: 3
+
+Elevator is moving to Floor 4
+
+Entering Elevator: Wil		|	Desitnation Floor: 3
+Entering Elevator: Gia		|	Desitnation Floor: 1
+
+Elevator is moving to Floor 3
+
+Exiting Elevator: Wil		|	Temporarily exited: 0
+Exiting Elevator: Lee		|	Temporarily exited: 0
+Entering Elevator: Isa		|	Desitnation Floor: 1
+
+Elevator is moving to Floor 1
+
+Exiting Elevator: Isa		|	Temporarily exited: 0
+Exiting Elevator: Gia		|	Temporarily exited: 1
+Entering Elevator: Abe		|	Desitnation Floor: 3
+Entering Elevator: Lou		|	Desitnation Floor: 3
+Entering Elevator: Yul		|	Desitnation Floor: 4
+Entering Elevator: Al		|	Desitnation Floor: 4
+
+Elevator is moving to Floor 2
+
+Entering Elevator: Lew		|	Desitnation Floor: 5
+Elevator is full. Taking Stairs: Nan
+
+Elevator is moving to Floor 3
+
+Exiting Elevator: Lou		|	Temporarily exited: 0
+Exiting Elevator: Abe		|	Temporarily exited: 0
+Entering Elevator: Ina		|	Desitnation Floor: 4
+Entering Elevator: Bif		|	Desitnation Floor: 5
+Elevator is full. Taking Stairs: Moe
+
+Elevator is moving to Floor 4
+
+Exiting Elevator: Ina		|	Temporarily exited: 0
+Exiting Elevator: Al		|	Temporarily exited: 1
+Exiting Elevator: Yul		|	Temporarily exited: 1
+
+Elevator is moving to Floor 5
+
+Exiting Elevator: Bif		|	Temporarily exited: 1
+Exiting Elevator: Lew		|	Temporarily exited: 2
+Entering Elevator: Jan		|	Desitnation Floor: 1
+
+Elevator is moving to Floor 1
+
+Exiting Elevator: Jan		|	Temporarily exited: 0
+Entering Elevator: Mia		|	Desitnation Floor: 3
+Entering Elevator: Lisa		|	Desitnation Floor: 4
+
+Elevator is moving to Floor 2
+
+Entering Elevator: Cal		|	Desitnation Floor: 5
+
+Elevator is moving to Floor 3
+
+Exiting Elevator: Mia		|	Temporarily exited: 0
+
+Elevator is moving to Floor 4
+
+Exiting Elevator: Lisa		|	Temporarily exited: 1
+Entering Elevator: Pat		|	Desitnation Floor: 5
+Entering Elevator: Tess		|	Desitnation Floor: 2
+
+Elevator is moving to Floor 5
+
+Exiting Elevator: Pat		|	Temporarily exited: 0
+Exiting Elevator: Cal		|	Temporarily exited: 2
+
+Elevator is moving to Floor 3
+
+Entering Elevator: Nora		|	Desitnation Floor: 1
+
+Elevator is moving to Floor 2
+
+Exiting Elevator: Tess		|	Temporarily exited: 1
+Entering Elevator: Don		|	Desitnation Floor: 1
+
+Elevator is moving to Floor 1
+
+Exiting Elevator: Don		|	Temporarily exited: 0
+Exiting Elevator: Nora		|	Temporarily exited: 1
+Entering Elevator: Sam		|	Desitnation Floor: 5
+
+Elevator is moving to Floor 5
+
+Exiting Elevator: Sam		|	Temporarily exited: 0
+Entering Elevator: Liv		|	Desitnation Floor: 4
+
+Elevator is moving to Floor 4
+
+Exiting Elevator: Liv		|	Temporarily exited: 0
+Elevator is Currently Empty.
+
+Elevator is moving to Floor 1
+
+Entering Elevator: Nina		|	Desitnation Floor: 3
+
+Elevator is moving to Floor 3
+
+Exiting Elevator: Nina		|	Temporarily exited: 0
+Elevator is Currently Empty.
+
+Elevator is moving to Floor 5
+
+Entering Elevator: Mary		|	Desitnation Floor: 2
+
+Elevator is moving to Floor 2
+
+Exiting Elevator: Mary		|	Temporarily exited: 0
+Elevator is Currently Empty.
+
+Elevator is moving to Floor 1
+
+Entering Elevator: Ed		|	Desitnation Floor: 2
+
+Elevator is moving to Floor 2
+
+Exiting Elevator: Ed		|	Temporarily exited: 0
+Entering Elevator: Tad		|	Desitnation Floor: 3
+
+Elevator is moving to Floor 3
+
+Exiting Elevator: Tad		|	Temporarily exited: 0
+Entering Elevator: Ali		|	Desitnation Floor: 4
+
+Elevator is moving to Floor 4
+
+Exiting Elevator: Ali		|	Temporarily exited: 0
+Entering Elevator: Sue		|	Desitnation Floor: 5
+
+Elevator is moving to Floor 5
+
+Exiting Elevator: Sue		|	Temporarily exited: 0
+Elevator is Empty and Not Operational.
+
+----------------
+Statstical Data:
+----------------
+No. of instances elevator was empty while running: 3
+No. of people who took stairs: 5
+No. of people who rode elevator: 44

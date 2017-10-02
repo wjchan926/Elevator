@@ -1,5 +1,11 @@
 package elevator;
 
+/**
+ * This class represents a person that wants to use the elevator.
+ * 
+ * @author Wesley Chan
+ *
+ */
 public class ElevatorPerson {
 	
 	private String name;
@@ -40,7 +46,7 @@ public class ElevatorPerson {
 
 	/**
 	 * Sets the floor in which the person entered
-	 * @param floorEntered floor in which the person entered of type int
+	 * @param floorEnter floor in which the person entered of type int
 	 */
 	public void setFloorEntered(int floorEnter) {
 		this.floorEnter = floorEnter;
@@ -56,7 +62,7 @@ public class ElevatorPerson {
 
 	/**
 	 * Sets the floor where person wants to exit
-	 * @param floorExtited floor where person wants to exit as type int
+	 * @param floorExit floor where person wants to exit as type int
 	 */
 	public void setFloorExit(int floorExit) {
 		this.floorExit = floorExit;

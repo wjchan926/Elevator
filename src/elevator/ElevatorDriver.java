@@ -1,15 +1,30 @@
 package elevator;
 
 import java.io.IOException;
+import java.util.Scanner;
 
+/**
+ * This class is the Driver class for the Elevator simulation. It interactively
+ * asks for the input source filename and ask for a filename to save the output
+ * data.
+ * 
+ * @author Wesley Chan
+ *
+ */
 public class ElevatorDriver {
 	public static void main(String[] args) throws IOException, InterruptedException {
 
-		Reader elevatorData = new Reader("elevatorData.txt");
+		Scanner input = new Scanner(System.in);
+		System.out.print("Please enter the filename for input data: ");
+		ReadFile elevatorData = new ReadFile(input.nextLine() + ".txt");
 
+		System.out.print("Please enter a filename for output data: ");
+		WriteFile outputFile = new WriteFile(input.nextLine() + ".txt");
+
+		input.close();
 		// Prompt User for data source file
 
-		Elevator elevOb = new Elevator();
+		Elevator elevOb = new Elevator(outputFile);
 
 		// Elevator Simulator Logic
 		// Determines if someone is getting on or off at current floor.
@@ -18,19 +33,15 @@ public class ElevatorDriver {
 
 		// Initialize destination floor request and move elevator to that floor
 		elevOb.setDestinationFloor(Integer.parseInt(elevatorData.getFileLines()[0][1]));
-
 		for (String[] s : elevatorData.getFileLines()) {
 
 			ElevatorPerson ep = new ElevatorPerson(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]));
-			elevOb.setRequestedFloor(ep.getFloorEntered()); // Make a floor request
+			elevOb.setRequestedFloor(ep.getFloorEntered()); // Make a floor
+															// request
 			elevOb.calcNextFloor();
 
-			if (elevOb.isEmpty()) {
-				elevOb.getElevStack().INCNUMEMPTY();
-				System.out.println("Empty Elevator");
-			}
-
-			// Keep moving elevator and having people exit if current floor is not the
+			// Keep moving elevator and having people exit if current floor is
+			// not the
 			// requested floor
 			while (ep.getFloorEntered() != elevOb.getCurrentFloor()) {
 				elevOb.moveElev();
@@ -42,31 +53,38 @@ public class ElevatorDriver {
 			elevOb.exit();
 
 			if (elevOb.isFull()) { // If elevator is full, person will walk
-				System.out.println(ep + " is taking the stairs. Elevator is full.");
+				outputFile.writeToFile("Elevator is full. Taking Stairs: " + ep + "\r\n");
 				elevOb.getElevStack().INCNUMFULL();
-				elevOb.calcNextFloor();
-				elevOb.moveElev();
 			} else { // Otherwise they will get on the elevator
-				System.out.println(ep + " is entering. " + ep + "'s destination is floor " + ep.getFloorExit());
+				outputFile.writeToFile(
+						"Entering Elevator: " + ep + "\t\t|\tDesitnation Floor: " + ep.getFloorExit() + "\r\n");
 				elevOb.enter(ep);
-				elevOb.calcNextFloor();
 			}
+
 		}
 
 		// Clear out remaining people in elevator
 		while (!elevOb.isEmpty()) {
+			elevOb.calcNextFloor();
 			elevOb.moveElev();
 			elevOb.exit();
 			if (elevOb.isEmpty()) {
-				elevOb.getElevStack().INCNUMEMPTY();
-				System.out.println("Empty Elevator");
+				outputFile.writeToFile("Elevator is Empty and Not Operational.\r\n");
 			}
 		}
-		
-		System.out.println(elevOb.getElevStack().GETNUMEMPTY());
-		System.out.println(elevOb.getElevStack().GETNUMFULL());
-		System.out.println(elevOb.getElevStack().GETTOTALRODE());
-		
 
+		// Add Statistical Data
+		outputFile.writeToFile("\r\n----------------\r\n");
+		outputFile.writeToFile("Statstical Data:\r\n");
+		outputFile.writeToFile("----------------\r\n");
+		outputFile.writeToFile(
+				"No. of instances elevator was empty while running: " + elevOb.getElevStack().GETNUMEMPTY() + "\r\n");
+		outputFile.writeToFile("No. of people who took stairs: " + elevOb.getElevStack().GETNUMFULL() + "\r\n");
+		outputFile.writeToFile("No. of people who rode elevator: " + elevOb.getElevStack().GETTOTALRODE() + "\r\n");
+
+		// Close file
+		outputFile.closeFile();
+
+		System.out.println("Simulation Complete.");
 	}
 }

@@ -1,8 +1,8 @@
 package elevator;
 
 /**
- * Generic stack class that will be used to hold Objects, typically an
- * ElevatorPerson
+ * Custom Stack class that will be used to hold ElevatorPerson Objects. The
+ * stack uses an Array implementation.
  * 
  * @author Wesley Chan
  * 
@@ -12,24 +12,40 @@ public class MyStack {
 	private int top;
 	private ElevatorPerson[] stackArr;
 
+	/**
+	 * Default Constructor for the custom stack class MyStack
+	 */
 	MyStack() {
 		top = -1;
 		stackArr = new ElevatorPerson[5];
 	}
 
+	/**
+	 * Gets the array holding all the ElevatorPerson objects
+	 * 
+	 * @return array holding the ElevatorPerson objects
+	 */
 	public ElevatorPerson[] getStackArr() {
 		return stackArr;
 	}
-	
+
+	/**
+	 * Sets the array size.
+	 * 
+	 * Precondition: only use to change the size of the tempExitArr
+	 * 
+	 * @param i
+	 *            new size of array
+	 */
 	public void setStackSize(int i) {
 		stackArr = new ElevatorPerson[i];
 	}
 
 	/**
-	 * Adds an object to the stack
+	 * Adds an ElevatorPerson object to the stack
 	 * 
-	 * @param t
-	 *            represents an object that will be placed in the stack
+	 * @param ep
+	 *            ElevatorPerson to add to the stack
 	 */
 	public void push(ElevatorPerson ep) {
 		if (isFull()) { // Checks if stack is full
@@ -45,7 +61,6 @@ public class MyStack {
 	 * 
 	 * @return the object at top of stack, null if empty
 	 */
-
 	public ElevatorPerson pop() {
 		if (isEmpty()) { // Check if stack is empty
 			System.out.println("Empty.");
@@ -58,6 +73,11 @@ public class MyStack {
 		}
 	}
 
+	/**
+	 * Gets the object at the top of the stack without removing it
+	 * 
+	 * @return ElevatorPerson object at the top of the stack
+	 */
 	public ElevatorPerson peek() {
 		if (isEmpty()) { // Check if stack is empty
 			System.out.println("Empty.");
@@ -86,19 +106,11 @@ public class MyStack {
 	}
 
 	/**
-	 * Prints out who is in the stack
+	 * Returns the number of ElevatorPeople objects in the stack
+	 * 
+	 * @return number of people in the elevator as an int
 	 */
-	public void printStack() {
-		if (isEmpty()) {
-			System.out.println("Elevator is Empty.");
-		} else {
-			for (int i = top; i > -1; i--) {
-				System.out.println(stackArr[i]);
-			}
-		}
-	}
-
 	public int getSize() {
-		return top+1;
+		return top + 1;
 	}
 }

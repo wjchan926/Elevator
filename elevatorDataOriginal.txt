@@ -1,4 +1,4 @@
-//elevator input data – collected by a Go Pro Camera you mount on the elevator ceiling.
+//elevator input data â€“ collected by a Go Pro Camera you mount on the elevator ceiling.
 //Name      floor entered elevator      floor exited. 
 Eli	1	5
 Babs	1	3
