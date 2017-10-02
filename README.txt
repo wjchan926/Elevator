@@ -16,8 +16,9 @@ The second input file is student generated data for testing purposes.
 ==How to Use==
 The Driver file that includes the main() method is named ElevatorDriver.java.
 
-When this file is run, the command line will prompt the user for the input file name.
-Type in the original input data file (elevatorDataOriginal) or the student generated file (studentGenData).
+The driver accepts 2 commandline arguments.  The first argument is the input data source file.
+The second arugment will be the name of the output source file.
+Include extensions in the filename strings.
 
 If a user wishes to use their own data, please refer to the =Input Data Format= section.
 The user file must be in the same folder as the other input files.

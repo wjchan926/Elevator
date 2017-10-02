@@ -14,14 +14,12 @@ import java.util.Scanner;
 public class ElevatorDriver {
 	public static void main(String[] args) throws IOException, InterruptedException {
 
-		Scanner input = new Scanner(System.in);
-		System.out.print("Please enter the filename for input data: ");
-		ReadFile elevatorData = new ReadFile(input.nextLine() + ".txt");
+		// First Command line argument is the input source txt file.
+		ReadFile elevatorData = new ReadFile(args[0]);
 
-		System.out.print("Please enter a filename for output data: ");
-		WriteFile outputFile = new WriteFile(input.nextLine() + ".txt");
+		// Second Command line argument is the output source filename.
+		WriteFile outputFile = new WriteFile(args[1]);
 
-		input.close();
 		// Prompt User for data source file
 
 		Elevator elevOb = new Elevator(outputFile);
