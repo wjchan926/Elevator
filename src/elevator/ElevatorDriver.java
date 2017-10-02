@@ -1,7 +1,6 @@
 package elevator;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * This class is the Driver class for the Elevator simulation. It interactively
