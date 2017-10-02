@@ -11,6 +11,7 @@ public class ElevatorPerson {
 		this.setName(name);
 		this.setFloorEntered(floorEnter);
 		this.setFloorExit(floorExit);		
+		tempExits = 0;
 	}
 
 	/**

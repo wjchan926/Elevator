@@ -31,7 +31,7 @@ public class Elevator {
 	 * 
 	 * @return currentFloor is the floor the elevator is currently on as type int
 	 */
-	public int getCurretnFloor() {
+	public int getCurrentFloor() {
 		return currentFloor;
 	}
 
@@ -46,7 +46,7 @@ public class Elevator {
 	public void setDestinationFloor(int floor) {
 		destinationFloor = floor;
 	}
-	
+
 	public void setRequestedFloor(int floor) {
 		requestedFloor = floor;
 	}
@@ -69,7 +69,7 @@ public class Elevator {
 	}
 
 	/**
-	 * Sets the direction to true, corresponds to elevator moving upwards
+	 * Switches direction elevator is moving. -1 correponds to downward
 	 */
 	public void switchElevDirection() {
 		direction *= -1;
@@ -87,7 +87,6 @@ public class Elevator {
 	 */
 	public void enter(ElevatorPerson ep) {
 		elevStack.push(ep);
-	
 	}
 
 	/**
@@ -100,18 +99,30 @@ public class Elevator {
 	 */
 	public void exit() {
 		if (!elevStack.isEmpty() && destinationFloor == currentFloor) {
-			for (int i = 0; i < elevStack.getSize(); i++) {
+			int size = elevStack.getSize();
+			int numToExit = 0;
+
+			tempExitStack.setStackSize(size);
+			
+			// Get number of people that need to exit this floor
+			for (int i = 0; i < size; i++) {
+				if (elevStack.getStackArr()[i].getFloorExit() == currentFloor) {
+					numToExit++;
+				}
+			}
+
+			for (int i = 0; i < size && numToExit != 0; i++) {
 				if (elevStack.peek().getFloorExit() != currentFloor) {
 					tempExitStack.push(elevStack.pop());
 				} else {
 					// Write to file who exited
-					ElevatorPerson tempEp = elevStack.pop();
-					System.out.println(tempEp + " is exiting. Temporarily exited: " + tempEp.getTempExits());
+					numToExit--;
+					System.out.println(
+							elevStack.peek() + " is exiting. Temporarily exited: " + elevStack.pop().getTempExits());
 				}
 			}
-
 			restoreTempExited(); // People return if exited
-			detNextFloor();
+			calcNextFloor();
 		}
 
 	}
@@ -125,13 +136,10 @@ public class Elevator {
 	 * will be empty after method call completes
 	 */
 	private void restoreTempExited() {
-		tempExitStack.printStack();
-		if (tempExitStack.getSize() > -1) {
-			for (ElevatorPerson ep : tempExitStack.getStackArr()) {
-				ep.incTempExits();
-				elevStack.DECTOTALRODE(); // People who are temporarily exiting are not double counted in total.
-				elevStack.push(tempExitStack.pop());
-			}
+		while (!tempExitStack.isEmpty()) {
+			tempExitStack.peek().incTempExits();
+			elevStack.push(tempExitStack.pop());
+			elevStack.DECTOTALRODE(); // Prevents double counting the temporary Exits
 		}
 	}
 
@@ -142,30 +150,58 @@ public class Elevator {
 	 * moving, the elevator will switch it's direction.
 	 * 
 	 */
-	public void detNextFloor() {
+	public void calcNextFloor() {
 
 		int diff = 5;
-		int[] floorReqInElev = new int[elevStack.getSize()];
+		int[] floorReqInElev = new int[elevStack.getSize() + 1];
+		boolean floorFound = false;
 
-		for (int i = 0; i < floorReqInElev.length; i++) {
+		for (int i = 0; i < floorReqInElev.length - 1; i++) {
 			floorReqInElev[i] = elevStack.getStackArr()[i].getFloorExit();
 		}
 
-		// Linear search for closest floor since there are only max 6 elements. Also
-		// take into account direction of elevator.
+		floorReqInElev[floorReqInElev.length - 1] = requestedFloor;
+
 		for (int i = 0; i < floorReqInElev.length; i++) {
-			if (floorReqInElev[i] * direction > currentFloor * direction
-					&& calcFloorDist(floorReqInElev[i]) < diff) {
-				diff = calcFloorDist(floorReqInElev[i]);
-				destinationFloor = floorReqInElev[i];
+			if (floorReqInElev[i] * direction > currentFloor * direction) {
+				if (calcFloorDist(floorReqInElev[i]) < diff) {
+					diff = calcFloorDist(floorReqInElev[i]);
+					destinationFloor = floorReqInElev[i];
+					floorFound = true;
+				}
 			}
-		}	
-		
-		if (calcFloorDist(requestedFloor) < calcFloorDist(destinationFloor)) {
-			destinationFloor = requestedFloor;
 		}
+
+		if (floorFound == false) {
+			switchElevDirection();
+			for (int i = 0; i < floorReqInElev.length; i++) {
+				if (floorReqInElev[i] * direction > currentFloor * direction) {
+					if (calcFloorDist(floorReqInElev[i]) < diff) {
+						diff = calcFloorDist(floorReqInElev[i]);
+						destinationFloor = floorReqInElev[i];
+						floorFound = true;
+					}
+				}
+			}
+		}
+
+		/*
+		 * int diff = 5; int[] floorReqInElev = new int[elevStack.getSize()]; boolean
+		 * reqInDir = true;
+		 * 
+		 * for (int i = 0; i < floorReqInElev.length; i++) { floorReqInElev[i] =
+		 * elevStack.getStackArr()[i].getFloorExit(); }
+		 * 
+		 * // Linear search for closest floor since there are only max 6 elements. Also
+		 * // take into account direction of elevator.
+		 * 
+		 * for (int i = 0; i < floorReqInElev.length; i++) { if (floorReqInElev[i] *
+		 * direction > currentFloor * direction) { if (calcFloorDist(floorReqInElev[i])
+		 * < diff) { diff = calcFloorDist(floorReqInElev[i]); destinationFloor =
+		 * floorReqInElev[i]; } } }
+		 */
 	}
-	
+
 	private int calcFloorDist(int i) {
 		return Math.abs(i - currentFloor);
 	}
@@ -174,7 +210,6 @@ public class Elevator {
 	 * This method moves the elevator to the destination floor
 	 */
 	public void moveElev() {
-
 		currentFloor = destinationFloor;
 		System.out.println("Elevator is on floor " + currentFloor);
 	}

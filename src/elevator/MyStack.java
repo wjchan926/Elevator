@@ -20,6 +20,10 @@ public class MyStack {
 	public ElevatorPerson[] getStackArr() {
 		return stackArr;
 	}
+	
+	public void setStackSize(int i) {
+		stackArr = new ElevatorPerson[i];
+	}
 
 	/**
 	 * Adds an object to the stack
@@ -41,6 +45,7 @@ public class MyStack {
 	 * 
 	 * @return the object at top of stack, null if empty
 	 */
+
 	public ElevatorPerson pop() {
 		if (isEmpty()) { // Check if stack is empty
 			System.out.println("Empty.");
