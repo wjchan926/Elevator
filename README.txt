@@ -1,6 +1,7 @@
 ===Lab 1: Elevator Simulation===
 Created by: Wesley Chan
-IDE: Eclipse
+IDE: Eclipse Neon
+Java Version 8
 
 ==Description==
 There are 7 .java files associated with this package.
